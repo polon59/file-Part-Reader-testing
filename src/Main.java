@@ -7,12 +7,12 @@ public class Main {
         FilePartReader filePartReader = new FilePartReader();
         FileWordAnalyzer fileWordAnalyzer = new FileWordAnalyzer(filePartReader);
 
-        filePartReader.setup("data.txt",1,6);
+        filePartReader.setup("data.txt",1,3);
         System.out.println(filePartReader.readLines());
 
         List<String> wordsAlphabhetically = fileWordAnalyzer.wordsByABC();
         for (String word : wordsAlphabhetically){
-            System.out.println(word);
+            System.out.print(word);
         }
     }
 }
