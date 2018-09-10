@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FileWordAnalyzerTest {
 
-    FilePartReader filePartReader = new FilePartReader();
-    FileWordAnalyzer fileWordAnalyzer = new FileWordAnalyzer(filePartReader);
+    private FilePartReader filePartReader = new FilePartReader();
+    private FileWordAnalyzer fileWordAnalyzer = new FileWordAnalyzer(filePartReader);
 
     @Test
     @DisplayName("Test word sorting by alphabetic order")
@@ -15,7 +15,7 @@ class FileWordAnalyzerTest {
 
         filePartReader.setup("data.txt",1,3);
 
-        List<String> wordsAlphabhetically = fileWordAnalyzer.wordsByABC();
+        List wordsAlphabhetically = fileWordAnalyzer.wordsByABC();
 
         List<String> expectedWords = new ArrayList<>();
         expectedWords.add("dupa");
