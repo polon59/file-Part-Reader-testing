@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,10 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FileWordAnalyzerTest {
 
+    FilePartReader filePartReader = new FilePartReader();
+    FileWordAnalyzer fileWordAnalyzer = new FileWordAnalyzer(filePartReader);
+
     @Test
+    @DisplayName("Test word sorting by alphabetic order")
     void wordsByABCTest() {
-        FilePartReader filePartReader = new FilePartReader();
-        FileWordAnalyzer fileWordAnalyzer = new FileWordAnalyzer(filePartReader);
+
         filePartReader.setup("data.txt",1,3);
 
         List<String> wordsAlphabhetically = fileWordAnalyzer.wordsByABC();
@@ -19,5 +23,19 @@ class FileWordAnalyzerTest {
         expectedWords.add("line2");
 
         assertEquals(expectedWords, wordsAlphabhetically);
+    }
+
+
+    @Test
+    @DisplayName("Test if exception thrown in method setup")
+    void testSetupFromLineLT1() {
+        boolean thrown = false;
+
+        try {
+            filePartReader.setup("data.txt",0,5);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 }
