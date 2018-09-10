@@ -56,12 +56,24 @@ class FileWordAnalyzerTest {
 
 
     @Test
-    @DisplayName("Testreading lines from 1 to 2")
+    @DisplayName("Test reading lines from 1 to 2")
     void testReadLines1_2() {
         String expected = "dupa\nline2\n";
         filePartReader.setup("text.txt",1,2);
         String recieved = filePartReader.readLines();
         assertEquals(expected,recieved);
-
     }
+
+
+    @Test
+    @DisplayName("Test reading lines from 2 to 4")
+    void testReadLines2_4() {
+        String expected = "line2\njakieś słowo\nline4\n";
+        filePartReader.setup("text.txt",2,4);
+        String recieved = filePartReader.readLines();
+        assertEquals(expected,recieved);
+    }
+
+
+
 }
