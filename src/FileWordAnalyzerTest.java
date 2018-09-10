@@ -27,7 +27,7 @@ class FileWordAnalyzerTest {
 
 
     @Test
-    @DisplayName("Test if exception thrown in method setup")
+    @DisplayName("Test if exception thrown in method setup with fromline < 1")
     void testSetupFromLineLT1() {
         boolean thrown = false;
 
@@ -38,4 +38,19 @@ class FileWordAnalyzerTest {
         }
         assertTrue(thrown);
     }
+
+
+    @Test
+    @DisplayName("Test if exception thrown in method setup with toLine < fromLine")
+    void testSetupToLineLTFromLine() {
+        boolean thrown = false;
+
+        try {
+            filePartReader.setup("data.txt",5,2);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
 }
