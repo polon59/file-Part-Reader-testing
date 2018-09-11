@@ -18,9 +18,10 @@ class FileWordAnalyzerTest {
         List wordsAlphabhetically = fileWordAnalyzer.wordsByABC();
 
         List<String> expectedWords = new ArrayList<>();
-        expectedWords.add("dupa");
-        expectedWords.add("jakieś słowo");
-        expectedWords.add("line2");
+
+        expectedWords.add("1a1");
+        expectedWords.add("2b 2a");
+        expectedWords.add("3c 3b 3a");
 
         assertEquals(expectedWords, wordsAlphabhetically);
     }
@@ -58,7 +59,7 @@ class FileWordAnalyzerTest {
     @Test
     @DisplayName("Test reading lines from 1 to 2")
     void testReadLines1_2() {
-        String expected = "dupa\nline2\n";
+        String expected = "1a1\n2b 2a\n";
         filePartReader.setup("text.txt",1,2);
         String recieved = filePartReader.readLines();
         assertEquals(expected,recieved);
@@ -68,7 +69,7 @@ class FileWordAnalyzerTest {
     @Test
     @DisplayName("Test reading lines from 2 to 4")
     void testReadLines2_4() {
-        String expected = "line2\njakieś słowo\nline4\n";
+        String expected = "2b 2a\n3c 3b 3a\n4d 4cr 4bb4 4a\n";
         filePartReader.setup("text.txt",2,4);
         String recieved = filePartReader.readLines();
         assertEquals(expected,recieved);
@@ -81,9 +82,10 @@ class FileWordAnalyzerTest {
         filePartReader.setup("data.txt",1,100);
 
         List<String> expected = new ArrayList<>();
-        expected.add("jakieś słowo");
-        expected.add("inne słowo");
-        List recieved = fileWordAnalyzer.wordsContainingSubString("słowo");
+        expected.add("5e 5d 5c 5b 5ax");
+        expected.add("6f 6ea 6d 6ca 6bb 6a");
+        expected.add("7g 7f 7ea");
+        List recieved = fileWordAnalyzer.wordsContainingSubString("e");
         assertEquals(expected,recieved);
     }
 

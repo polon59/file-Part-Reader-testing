@@ -9,9 +9,15 @@ public class Main {
         filePartReader.setup("data.txt",2,4);
 //        System.out.println(filePartReader.readLines());
 
-        filePartReader.setup("data.txt",1,30);
-        List<String> foundWords = fileWordAnalyzer.wordsContainingSubString("du");
-        for (String word:foundWords) {
+//        filePartReader.setup("data.txt",1,30);
+//        List<String> foundWords = fileWordAnalyzer.wordsContainingSubString("e");
+//        for (String word:foundWords) {
+//            System.out.println(word);
+//        }
+
+        filePartReader.setup("data.txt",1,3);
+        List<String> wordsAlphabhetically = fileWordAnalyzer.wordsByABC();
+        for (String word:wordsAlphabhetically) {
             System.out.println(word);
         }
     }
