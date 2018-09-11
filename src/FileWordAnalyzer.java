@@ -32,7 +32,38 @@ class FileWordAnalyzer {
                 wordsContainingSubStr.add(word);
             }
         }
-
         return wordsContainingSubStr;
+    }
+
+
+    List wordsArePalindrome (){
+        filePartReader.setup("data.txt",1,100);
+        String fileText = filePartReader.readLines();
+        String[] fileLines = fileText.split("\n");
+        List<String> palindromes = new ArrayList<>();
+
+        for (String word:fileLines){
+            boolean isPalindrom = isPalindrom(word);
+            if (isPalindrom){
+                palindromes.add(word);
+            }
+        }
+        return palindromes;
+    }
+
+
+    boolean isPalindrom(String word){
+        String[] splittedWord = word.split("");
+        int i1 = 0;
+        int i2 = splittedWord.length - 1;
+        while (i2 > i1) {
+            if (!(splittedWord[i1].equals(splittedWord[i2]))) {
+                return false;
+            }
+
+            ++i1;
+            --i2;
+        }
+        return true;
     }
 }
