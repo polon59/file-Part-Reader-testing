@@ -75,5 +75,19 @@ class FileWordAnalyzerTest {
     }
 
 
+    @Test
+    @DisplayName("Test finding strings containing given substring")
+    void testWordsContainingSubString(){
+        filePartReader.setup("data.txt",1,100);
+
+        List<String> expected = new ArrayList<>();
+        expected.add("jakieś słowo");
+        expected.add("inne słowo");
+        List recieved = fileWordAnalyzer.wordsContainingSubString("słowo");
+        assertEquals(expected,recieved);
+    }
+
+
+
 
 }
