@@ -77,6 +77,16 @@ class FileWordAnalyzerTest {
 
 
     @Test
+    @DisplayName("Test finding palindromes")
+    void testWordsArePalindrome() {
+        List<String> expected = new ArrayList<>();
+        expected.add("1a1");
+        List recieved = fileWordAnalyzer.wordsArePalindrome();
+        assertEquals(expected,recieved);
+    }
+
+
+    @Test
     @DisplayName("Test finding strings containing given substring")
     void testWordsContainingSubString(){
         filePartReader.setup("data.txt",1,100);
@@ -88,6 +98,9 @@ class FileWordAnalyzerTest {
         List recieved = fileWordAnalyzer.wordsContainingSubString("e");
         assertEquals(expected,recieved);
     }
+
+
+
 
 
 
