@@ -12,16 +12,13 @@ class FileWordAnalyzerTest {
     @Test
     @DisplayName("Test word sorting by alphabetic order")
     void wordsByABCTest() {
-
-        filePartReader.setup("data.txt",1,3);
-
-        List wordsAlphabhetically = fileWordAnalyzer.wordsByABC();
-
         List<String> expectedWords = new ArrayList<>();
-
         expectedWords.add("1a1");
         expectedWords.add("2b 2a");
         expectedWords.add("3c 3b 3a");
+        filePartReader.setup("data.txt",1,3);
+
+        List wordsAlphabhetically = fileWordAnalyzer.wordsByABC();
 
         assertEquals(expectedWords, wordsAlphabhetically);
     }
@@ -30,28 +27,14 @@ class FileWordAnalyzerTest {
     @Test
     @DisplayName("Test if exception thrown in method setup with fromline < 1")
     void testSetupFromLineLT1() {
-        boolean thrown = false;
-
-        try {
-            filePartReader.setup("data.txt",0,5);
-        } catch (IllegalArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        assertThrows(IllegalArgumentException.class, () -> filePartReader.setup("data.txt",0,5));
     }
 
 
     @Test
     @DisplayName("Test if exception thrown in method setup with toLine < fromLine")
     void testSetupToLineLTFromLine() {
-        boolean thrown = false;
-
-        try {
-            filePartReader.setup("data.txt",5,2);
-        } catch (IllegalArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        assertThrows(IllegalArgumentException.class, () -> filePartReader.setup("data.txt",5,2));
     }
 
 
@@ -61,7 +44,9 @@ class FileWordAnalyzerTest {
     void testReadLines1_2() {
         String expected = "1a1\n2b 2a\n";
         filePartReader.setup("text.txt",1,2);
+
         String recieved = filePartReader.readLines();
+
         assertEquals(expected,recieved);
     }
 
@@ -75,6 +60,7 @@ class FileWordAnalyzerTest {
         assertEquals(expected,recieved);
     }
 
+//    RECEIVED
 
     @Test
     @DisplayName("Test finding palindromes")
@@ -89,14 +75,16 @@ class FileWordAnalyzerTest {
     @Test
     @DisplayName("Test finding strings containing given substring")
     void testWordsContainingSubString(){
-        filePartReader.setup("data.txt",1,100);
-
+        List<String> received;
         List<String> expected = new ArrayList<>();
+        filePartReader.setup("data.txt",1,100);
         expected.add("5e 5d 5c 5b 5ax");
         expected.add("6f 6ea 6d 6ca 6bb 6a");
         expected.add("7g 7f 7ea");
-        List recieved = fileWordAnalyzer.wordsContainingSubString("e");
-        assertEquals(expected,recieved);
+
+        received = fileWordAnalyzer.wordsContainingSubString("e");
+
+        assertEquals(expected,received);
     }
 
 
