@@ -1,13 +1,33 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 class FileWordAnalyzerTest {
 
-    private FilePartReader filePartReader = new FilePartReader();
-    private FileWordAnalyzer fileWordAnalyzer = new FileWordAnalyzer(filePartReader);
+    private FilePartReader filePartReader;
+    private FileWordAnalyzer fileWordAnalyzer;
+
+
+    @Mock
+    private FilePartReader filePartReaderMock;
+
+
+    @BeforeEach
+    void setup() {
+        this.filePartReader = new FilePartReader();
+        this.fileWordAnalyzer = new FileWordAnalyzer(filePartReader);
+    }
+
+
 
     @Test
     @DisplayName("Test word sorting by alphabetic order")
@@ -75,9 +95,11 @@ class FileWordAnalyzerTest {
     @Test
     @DisplayName("Test finding strings containing given substring")
     void testWordsContainingSubString(){
+        MockitoAnnotations.initMocks(this);
+        fileWordAnalyzer = new FileWordAnalyzer(filePartReaderMock);
+        when(filePartReaderMock.readLines()).thenReturn("1a1\n2b 2a\n3c 3b 3a\n4d 4cr 4bb4 4a\n5e 5d 5c 5b 5ax\n6f 6ea 6d 6ca 6bb 6a\n7g 7f 7ea\n");
         List<String> received;
         List<String> expected = new ArrayList<>();
-        filePartReader.setup("data.txt",1,100);
         expected.add("5e 5d 5c 5b 5ax");
         expected.add("6f 6ea 6d 6ca 6bb 6a");
         expected.add("7g 7f 7ea");
@@ -85,6 +107,30 @@ class FileWordAnalyzerTest {
         received = fileWordAnalyzer.wordsContainingSubString("e");
 
         assertEquals(expected,received);
+    }
+
+
+    @Test
+    @DisplayName("Test reading all lines from file")
+    void testReadLinesAll(){
+        String expected = "1a1\n2b 2a\n3c 3b 3a\n4d 4cr 4bb4 4a\n5e 5d 5c 5b 5ax\n6f 6ea 6d 6ca 6bb 6a\n7g 7f 7ea\n";
+        filePartReader.setup("text.txt",1,100);
+
+        String recieved = filePartReader.readLines();
+
+        assertEquals(expected,recieved);
+    }
+
+
+    @Test
+    @DisplayName("Test reading while 'toline' is past file length")
+    void testReadLinesPastEof(){
+        String expected = "1a1\n2b 2a\n3c 3b 3a\n4d 4cr 4bb4 4a\n5e 5d 5c 5b 5ax\n6f 6ea 6d 6ca 6bb 6a\n7g 7f 7ea\n";
+        filePartReader.setup("text.txt",1,100);
+
+        String recieved = filePartReader.readLines();
+
+        assertEquals(expected,recieved);
     }
 
 

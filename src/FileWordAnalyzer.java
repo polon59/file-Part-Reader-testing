@@ -52,7 +52,7 @@ class FileWordAnalyzer {
     }
 
 
-    boolean isPalindrom(String word){
+    private boolean isPalindrom(String word){
         String[] splittedWord = word.split("");
         int i1 = 0;
         int i2 = splittedWord.length - 1;
